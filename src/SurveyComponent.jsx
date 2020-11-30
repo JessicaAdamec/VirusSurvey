@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import * as Survey from "survey-react";
-//import 'bootstrap/dist/css/bootstrap.css';
-import "survey-react/survey.css";
+// import 'bootstrap/dist/css/bootstrap.css';
+//import "survey-react/survey.css";
 import "./index.css";
 
-Survey.StylesManager.applyTheme("bootstrap");
+//Survey.StylesManager.applyTheme("bootstrap");
 
 class SurveyComponent extends Component {
   // constructor() {
@@ -79,11 +79,24 @@ class SurveyComponent extends Component {
           name: "covidExposurePage",
           elements: [
             {
-              type: "boolean",
+              type: "radiogroup",
               name: "covidExposureQ",
               title:
                 "To the best of your knowledge, during the past 14 days, have you been within 6 feet of a person with a pending or lab confirmed case of COVID-19 for at least 15 minutes, had direct contact with that person's mucus or saliva, or been contacted by public health and told you were in close contact with someone known to have COVID-19?  ",
-              isRequired: true
+              isRequired: true, 
+              choices: [
+                {
+                  value: "Yes",
+                  text: "I have been in contact. "
+                },
+
+                {
+                  value: "No",
+                  text: "I have NOT been in contact."
+                }
+
+
+              ]
             }
           ],
           title: "COVID Exposure "
@@ -92,11 +105,24 @@ class SurveyComponent extends Component {
           name: "covidDiagnosisPage",
           elements: [
             {
-              type: "boolean",
+              type: "radiogroup",
               name: "covidTestingQ",
               title:
                 "Are you under evaluation for COVID-19 (e.g., waiting for the results of a viral test to confirm infection)?",
-              isRequired: true
+              isRequired: true,
+
+              choices: [
+
+                {
+                   value: "Yes",
+                   text: "Yes, I am"
+                },
+
+                {
+                  value: "No",
+                  text: "No, I am NOT"
+                }
+              ]
             },
             {
               type: "text",
@@ -129,10 +155,16 @@ class SurveyComponent extends Component {
                 {
                   value: "fever",
                   text: "A Fever 🤒 "
+  
                 },
                 {
                   value: "vomiting ",
                   text: "Vomiting 🤮 "
+                },
+
+                {
+                   value: "none",
+                   text: "none 😄 "
                 }
               ]
             },
@@ -153,7 +185,12 @@ class SurveyComponent extends Component {
                 {
                   value: "item3",
                   text: "Score Throat "
-                }
+                },
+
+                {
+                  value: "none",
+                  text: "none 😄 "
+               }
               ]
             },
             {
@@ -173,7 +210,12 @@ class SurveyComponent extends Component {
                 {
                   value: "item3",
                   text: "Loss of smell/taste "
-                }
+                }, 
+
+                {
+                  value: "none",
+                  text: "none 😄 "
+               }
               ]
             }
           ],
@@ -185,8 +227,38 @@ class SurveyComponent extends Component {
       ]
     };
 
+   // const survey = new Survey.Model(json);
+
     const survey = new Survey.Model(json);
-    return <Survey.Survey model={survey} />;
-  }
+
+        survey.onUpdateQuestionCssClasses.add(function(survey, options) {
+    var classes = options.cssClasses
+        classes.mainRoot += " sv_qstn";
+    classes.root = "sq-root";
+        classes.title += " sq-title"
+        classes.item += " sq-item";
+        classes.label += " sq-label";
+        
+    if (options.question.isRequired) {
+        classes.title += " sq-title-required";
+        classes.root += " sq-root-required";
+    }
+    if (options.question.getType() === "checkbox") {
+        classes.root += " sq-root-cb";
+    }
+});
+
+        
+
+        return (
+            <Survey.Survey
+                model={survey}
+            />
+        );
+    }
 }
+
+    //return <Survey.Survey model={survey} />;
+  //}
+//}
 export default SurveyComponent;
