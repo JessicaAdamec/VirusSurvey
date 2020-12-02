@@ -60,7 +60,7 @@ class SurveyComponent extends Component {
               choices: [
                 {
                   value: "SBH",
-                  text: "Sherburne "
+                  text: "Sherburne Hall"
                 },
                 {
                   value: "CH",
@@ -86,7 +86,7 @@ class SurveyComponent extends Component {
               isRequired: true
             }
           ],
-          title: "COVID Exposure "
+          title: "COVID-19 Exposure "
         },
         {
           name: "covidDiagnosisPage",
@@ -113,12 +113,26 @@ class SurveyComponent extends Component {
               title:
                 "Have you been diagnosed with COVID-19 and not yet cleared to discontinue isolation?",
               isRequired: true
-            }
+            },
+
           ],
-          title: "COVID Diagnosis"
+          title: "COVID-19 Diagnosis"
         },
         {
-          name: "symtomsPage",
+          name: "covidHelpPage",
+          elements: [
+            {
+              type: "text",
+              name: "covidHelp",
+              visibleIf: "{covidExposureQ} = true || {haveCovidQ} = true",
+              title: "If you were in contact with someone who tested positive for COVID-19 or if you have tested positive for COVID-19, please quarantine for the recommended amount of time and visit the following link for more information: ",
+              link: "https://www.benefits.gov/help/faq/Coronavirus-resources"
+            }
+          ],
+          title: "COVID-19 Help Resources"
+        },
+        {
+          name: "symptomsPage",
           elements: [
             {
               type: "checkbox",
@@ -128,11 +142,15 @@ class SurveyComponent extends Component {
               choices: [
                 {
                   value: "fever",
-                  text: "A Fever 🤒 "
+                  text: "Fever 🤒 "
                 },
                 {
                   value: "vomiting ",
                   text: "Vomiting 🤮 "
+                },
+                {
+                  value: "none",
+                  text: "None of the symptoms listed"
                 }
               ]
             },
@@ -140,7 +158,7 @@ class SurveyComponent extends Component {
               type: "checkbox",
               name: "symp2",
               title:
-                "Have you have the following symptoms, that are NOT contributed any other condition ? ",
+                "Have you have the following symptoms, that are NOT contributed any other condition? ",
               choices: [
                 {
                   value: "item1",
@@ -148,11 +166,15 @@ class SurveyComponent extends Component {
                 },
                 {
                   value: "item2",
-                  text: "Shortness of breath "
+                  text: "Shortness of Breath "
                 },
                 {
                   value: "item3",
-                  text: "Score Throat "
+                  text: "Sore Throat "
+                },
+                {
+                  value: "none2",
+                  text: "None of the symptoms listed"
                 }
               ]
             },
@@ -160,11 +182,11 @@ class SurveyComponent extends Component {
               type: "checkbox",
               name: "symp3",
               title:
-                "Have you have the following symptoms, that are NOT contributed any other condition ? ",
+                "Have you have the following symptoms, that are NOT contributed any other condition? ",
               choices: [
                 {
                   value: "item1",
-                  text: "Muscle aches "
+                  text: "Muscle Aches "
                 },
                 {
                   value: "item2",
@@ -173,11 +195,15 @@ class SurveyComponent extends Component {
                 {
                   value: "item3",
                   text: "Loss of smell/taste "
+                },
+                {
+                  value: "none3",
+                  text: "None of the symptoms listed."
                 }
               ]
             }
           ],
-          title: "Symtoms ",
+          title: "Symptoms ",
           description:
             "NOTE: These symptoms should NOT be contributed to any other condition! ",
           questionsOrder: "random"
