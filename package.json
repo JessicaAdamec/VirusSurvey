@@ -1,11 +1,12 @@
 {
   "devDependencies": {
-    "react-scripts": "latest"
+    "react-scripts": "^4.0.1"
   },
   "dependencies": {
-    "survey-react": "latest",
+    "react": "latest",
     "react-dom": "latest",
-    "react": "latest"
+    "survey-pdf": "^1.8.18",
+    "survey-react": "^1.8.18"
   },
   "name": "cj1xw",
   "description": "null",
