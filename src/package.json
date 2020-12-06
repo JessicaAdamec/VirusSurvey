@@ -1,10 +1,15 @@
 {
+  
   "devDependencies": {
-    "react-scripts": "latest"
+    "react-scripts": "latest",
+    "brfs": "latest"
   },
   "dependencies": {
     "survey-react": "latest",
     "react-dom": "latest",
-    "react": "latest"
+    "react": "latest",
+    "mongodb": "latest",
+    "pdfkit": "latest",
+    "webpack": "4.44.2"
   }
 }

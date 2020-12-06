@@ -9,15 +9,19 @@ import * as SurveyPDF from "survey-pdf";
 import "survey-react/survey.css";
 import "./index.css";
 
+var mongo = require('mongodb'); 
+const http = require('http');
+var fs = require('fs');
 
 class SurveyPdfComponent extends Component {
+    
     constructor() {
         super();
 
     }
     render() {
 
-
+        
         Survey.StylesManager.applyTheme("bootstrap");
 
         const json = {
@@ -195,7 +199,13 @@ class SurveyPdfComponent extends Component {
         };
         const survey = new Survey.Model(json);
 
+        //This is causing an error
+        //const PDFDocument = require('pdfkit');
 
+        var dataString = "Data Retrieved:";
+
+        const MongoClient = require('mongodb').MongoClient;
+        const uri = "mongodb+srv://GeneralUser:1234@cluster0.velcv.mongodb.net/VirusSurveyDatabase?retryWrites=true&w=majority";
 
         function saveSurveyToPdf(filename, surveyModel, pdfWidth, pdfHeight) {
             var options = {
@@ -218,7 +228,51 @@ class SurveyPdfComponent extends Component {
             saveSurveyToPdf("surveyResult.pdf", survey, pdfWidth, pdfHeight);
         };
 
+        function GenerateReportPdf() {
+            RetrieveFromDatabase(function(dataString){
+                const report = new PDFDocument;
+                report.pipe(fs.createWriteStream('C:/Users/salar/Desktop/VirusSurveyReport.pdf')); // write to PDF
+                report.text('Virus Survey Report', {
+                    width: 410,
+                    align: 'center'
+                });
+                report.moveDown();
+                report.text(dataString, {
+                    width: 410,
+                    align: 'left'
+                });
+                console.log(dataString);
+                report.moveDown();
+                report.text('End of Report', {
+                    width: 410,
+                    align: 'center'
+                });
+                report.end();//Closes pdf
+            });
+        }
+        document.getElementById("genReportPDFbtn").onclick = function () {
+            GenerateReportPdf();
+        };
 
+        function RetrieveFromDatabase(callBack)
+        {
+            const client = new MongoClient(uri, { useNewUrlParser: true });
+            //This is causing an error
+            /*
+            client.connect(err => {
+                const cursor = client.db("VirusSurveyDatabase").collection("SurveyResults").find();
+                    cursor.each(function(err, doc) {
+                        if(doc != null)
+                        {
+                            dataString = dataString + "\n" + JSON.stringify(doc);
+                        }
+                        else
+                            return callBack(dataString);
+                    });
+                client.close();//Closes Database Connection
+            });
+            */
+        }
 
         function sendDataToServer(survey) {
             var xhr = new XMLHttpRequest();
@@ -233,6 +287,23 @@ class SurveyPdfComponent extends Component {
                 document
                     .querySelector('#surveyElement')
                     .textContent = "Result JSON:\n" + JSON.stringify(result.data, null, 3);
+                let Response = result.data;
+                const MongoClient = require('mongodb').MongoClient;
+                const uri = "mongodb+srv://GeneralUser:1234@cluster0.velcv.mongodb.net/VirusSurveyDatabase?retryWrites=true&w=majority";
+                const client = new MongoClient(uri, { useNewUrlParser: true });
+                //This is causing an error
+                /*
+                client.connect(err => {
+                    const collection = client.db("VirusSurveyDatabase").collection("SurveyResults");
+                    // perform actions on the collection object
+                        
+                    collection.insertOne(Response);
+                        
+                    console.log("Item was added to the database"); 
+                        
+                    client.close();
+                });
+                */
             });
         survey.data = {
 
