@@ -109,7 +109,7 @@ class SurveyPdfComponent extends Component {
                 type: "radiogroup",
                 name: "ResourcesQ",
                 visibleIf: "{covidExposureQ} = true",
-                title: "🚫ATTENTION 🚫 You are UNABLE  to enter St Cloud State University Campus. ",
+                title: "🚫ATTENTION 🚫 You are UNABLE  to enter St. Cloud State University Campus. Would you like to be shown resources available to those affected by COVID-19?",
                 choices: [
                  {
                   value: "Y",
@@ -140,7 +140,11 @@ class SurveyPdfComponent extends Component {
                  {
                   value: "CAPS",
                   text: "SCSU CAPS: https://www.stcloudstate.edu/counseling/"
-                 }
+                 },
+                 {
+                 value: "US_Benefits",
+                 text: "US Healthcare and Resources FAQs: https://www.benefits.gov/help/faq/Coronavirus-resources"
+                },                 
                 ],
                 hideIfChoicesEmpty: true
                }
@@ -189,14 +193,18 @@ class SurveyPdfComponent extends Component {
                  {
                   value: "DR_CAPS",
                   text: "SCSU CAPS: https://www.stcloudstate.edu/counseling/"
-                 }
+                 },
+                 {
+                  value: "DR_US_Benefits",
+                  text: "US Healthcare and Resources FAQs: https://www.benefits.gov/help/faq/Coronavirus-resources"
+                 },
                 ]
                }
               ],
               title: "COVID 19 Diagnosis"
              },
              {
-              name: "symtomsPage",
+              name: "symptomsPage",
               elements: [
                {
                 type: "checkbox",
@@ -220,7 +228,7 @@ class SurveyPdfComponent extends Component {
                {
                 type: "checkbox",
                 name: "symp2",
-                title: "Have you had any difficulties in the following? ",
+                title: "Have you had any of the following symptoms? ",
                 choices: [
                  {
                   value: "cough",
