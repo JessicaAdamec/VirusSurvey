@@ -3,10 +3,13 @@
     "react-scripts": "^4.0.1"
   },
   "dependencies": {
+    "brfs": "^2.0.2",
+    "pdfkit": "^0.11.0",
     "react": "latest",
     "react-dom": "latest",
     "survey-pdf": "^1.8.18",
-    "survey-react": "^1.8.18"
+    "survey-react": "^1.8.18",
+    "webpack": "^4.44.2"
   },
   "name": "cj1xw",
   "description": "null",
